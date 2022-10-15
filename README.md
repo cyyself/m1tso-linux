@@ -33,4 +33,4 @@ echo c | sudo tee /sys/kernel/m1tso/status
 
 ## How to Test?
 
-See [tsettso](https://github.com/saagarjha/TSOEnabler/blob/master/testtso/main.c) in [saagarjha/TSOEnabler](https://github.com/saagarjha/TSOEnabler).
+See [testtso](https://github.com/saagarjha/TSOEnabler/blob/master/testtso/main.c) in [saagarjha/TSOEnabler](https://github.com/saagarjha/TSOEnabler).
