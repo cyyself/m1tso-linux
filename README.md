@@ -1,4 +1,4 @@
-# M1 Linux TSO
+# TSOEnabler for Linux
 
 A Linux Kernel Module that enables Total-Store-Ordering on Apple Silicon with Linux.
 
