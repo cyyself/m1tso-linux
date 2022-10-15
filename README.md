@@ -19,6 +19,17 @@ sudo insmod m1tso.ko
 sudo cat /sys/kernel/m1tso/status
 ```
 
+```
+CPU[0].TSO=0
+CPU[1].TSO=0
+CPU[2].TSO=0
+CPU[3].TSO=0
+CPU[4].TSO=0
+CPU[5].TSO=0
+CPU[6].TSO=0
+CPU[7].TSO=0
+```
+
 ### Turn on TSO
 
 ```bash
