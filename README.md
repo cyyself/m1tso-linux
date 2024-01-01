@@ -45,3 +45,9 @@ echo c | sudo tee /sys/kernel/m1tso/status
 ## How to Test?
 
 See [testtso](https://github.com/saagarjha/TSOEnabler/blob/master/testtso/main.c) in [saagarjha/TSOEnabler](https://github.com/saagarjha/TSOEnabler).
+
+## Note for AsahiLinux Kernel > v6.3
+
+Please recompile the kernel with `CONFIG_ARM64_ACTLR_STATE=n` and `CONFIG_ARM64_MEMORY_MODEL_CONTROL=n` in your kernel `.config`.
+
+Related Issues: [https://github.com/AsahiLinux/linux/issues/189](https://github.com/AsahiLinux/linux/issues/189) [https://github.com/cyyself/m1tso-linux/issues/2](https://github.com/cyyself/m1tso-linux/issues/2)
