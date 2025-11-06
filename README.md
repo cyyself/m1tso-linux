@@ -50,6 +50,8 @@ See [testtso](https://github.com/saagarjha/TSOEnabler/blob/master/testtso/main.c
 
 Please recompile the kernel with `CONFIG_ARM64_ACTLR_STATE=n` and `CONFIG_ARM64_MEMORY_MODEL_CONTROL=n` in your kernel `.config`.
 
+> ⚠️ If you don't do this, every process without prctl set to TSO mode will **return to non-TSO mode** after context switch.
+
 Related Issues: [https://github.com/AsahiLinux/linux/issues/189](https://github.com/AsahiLinux/linux/issues/189) [https://github.com/cyyself/m1tso-linux/issues/2](https://github.com/cyyself/m1tso-linux/issues/2)
 
 ## Related Blogposts
