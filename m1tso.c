@@ -46,6 +46,8 @@ static ssize_t m1tso_status_load(struct kobject *kobj, struct kobj_attribute *at
     for (int i=0;i<NR_CPUS;i++) if (m1tso_status[i] != -1) {
         size += sprintf(buf+size, "CPU[%d].TSO=%d\n", i, m1tso_status[i]);
     }
+    // Refresh status after reading, so we can get latest status next time
+    on_each_cpu(m1tso_query, NULL, 1);
     return size;
 }
 
