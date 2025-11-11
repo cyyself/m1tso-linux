@@ -1,3 +1,5 @@
+#define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+
 #include <linux/module.h>
 #include <linux/types.h>
 
@@ -21,7 +23,7 @@ static void m1tso_set_actlr_el1(uint64_t val) {
         : 
         : "r"(val)
     );
-    printk(KERN_INFO "on CPU [%d], actlr_el1 set to %llx, value after set is %llx.\n", smp_processor_id() , val, m1tso_read_actlr_el1());
+    pr_info("on CPU [%d], actlr_el1 set to %llx, value after set is %llx.\n", smp_processor_id(), val, m1tso_read_actlr_el1());
 }
 
 int m1tso_status[NR_CPUS];
@@ -83,14 +85,12 @@ static int __init m1tso_init(void) {
     if (!(m1tso_kobj)) ret = -ENOMEM;
     ret = sysfs_create_group(m1tso_kobj, &m1tso_attr_group);
     if (ret) kobject_put(m1tso_kobj);
-    printk(KERN_INFO "m1tso module init success!\n");
     return ret;
 }
 
 static void __exit m1tso_exit(void) {
     sysfs_remove_group(m1tso_kobj, &m1tso_attr_group);
     kobject_put(m1tso_kobj);
-    printk(KERN_INFO "m1tso module exited!\n");
 }
 
 module_init(m1tso_init);
