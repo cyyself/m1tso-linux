@@ -42,22 +42,21 @@ static void m1tso_cleartso(void *info) {
 
 
 static ssize_t m1tso_status_load(struct kobject *kobj, struct kobj_attribute *attr, char *buf) {
+    on_each_cpu(m1tso_query, NULL, 0);
     ssize_t size = 0;
     for (int i=0;i<NR_CPUS;i++) if (m1tso_status[i] != -1) {
         size += sprintf(buf+size, "CPU[%d].TSO=%d\n", i, m1tso_status[i]);
     }
-    // Refresh status after reading, so we can get latest status next time
-    on_each_cpu(m1tso_query, NULL, 1);
     return size;
 }
 
 static ssize_t m1tso_status_store(struct kobject *kobj, struct kobj_attribute *attr, const char *buf, size_t cnt) {
     if (cnt >= 1) {
         if (buf[0] == 's') {
-            on_each_cpu(m1tso_settso, NULL, 1);
+            on_each_cpu(m1tso_settso, NULL, 0);
         }
         else if (buf[0] == 'c') {
-            on_each_cpu(m1tso_cleartso, NULL, 1);
+            on_each_cpu(m1tso_cleartso, NULL, 0);
         }
     }
     return cnt;
@@ -79,7 +78,7 @@ struct kobject *m1tso_kobj;
 static int __init m1tso_init(void) {
     int ret = 0;
     for (int i=0;i<NR_CPUS;i++) m1tso_status[i] = -1;
-    on_each_cpu(m1tso_query, NULL, 1);
+    on_each_cpu(m1tso_query, NULL, 0);
     m1tso_kobj = kobject_create_and_add("m1tso", kernel_kobj);
     if (!(m1tso_kobj)) ret = -ENOMEM;
     ret = sysfs_create_group(m1tso_kobj, &m1tso_attr_group);
